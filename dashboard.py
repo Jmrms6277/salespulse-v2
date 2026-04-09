@@ -53,8 +53,13 @@ def load_css():
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Mono&display=swap');
     * { font-family: 'Outfit', sans-serif !important; }
     .stApp { background: #060818; }
-    #MainMenu, footer { visibility: hidden; }
+    #MainMenu { visibility: hidden; }
+    footer { visibility: hidden; }
 
+    /* keep header but make invisible visually */
+    header {
+        background: transparent !important;
+    }
     /* Sidebar */
     section[data-testid="stSidebar"] {
         background: #0a0d1a !important;
