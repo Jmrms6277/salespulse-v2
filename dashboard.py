@@ -58,12 +58,10 @@ def load_css():
     #MainMenu, footer { visibility: hidden; }
 
     /* Sidebar */
-    section[data-testid="stSidebar"] {
-        background: #0a0d1a !important;
-        border-right: 1px solid #1a1f35 !important;
-    }
-    section[data-testid="stSidebar"] * { color: #e5e7eb !important; }
-
+section[data-testid="stSidebar"] {
+    background: #0d0f1a !important;
+    border-right: 1px solid #1e2130;
+}
     /* Nav buttons */
     .nav-btn {
         display: flex; align-items: center; gap: 12px;
