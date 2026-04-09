@@ -6,11 +6,9 @@ st.set_page_config(
     layout="wide",
 )
 
-# Session init
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
-# Routing
 if not st.session_state.logged_in:
     from login import show_login
     show_login()
