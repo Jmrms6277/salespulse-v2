@@ -51,18 +51,28 @@ COLORS = px.colors.qualitative.Vivid
 # ── CSS ─────────────────────────────────────────────────────────────────────────
 def load_css():
     st.markdown("""
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Mono&display=swap');
-    * { font-family: 'Outfit', sans-serif !important; }
-    .stApp { background: #060818; }
-    #MainMenu, footer { visibility: hidden; }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Mono&display=swap');
 
-    /* Sidebar */
-    section[data-testid="collapsedControl"] {
-        background: #0a0d1a !important;
-        border-right: 1px solid #1a1f35 !important;
-    }
-    section[data-testid="collapsedControl"] * { color: #e5e7eb !important; }
+/* ✅ ADD THIS (for icons) */
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+* { font-family: 'Outfit', sans-serif !important; }
+.stApp { background: #060818; }
+#MainMenu, footer { visibility: hidden; }
+
+/* ✅ ADD THIS (icon styling) */
+.material-icons {
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background: #0a0d1a !important;
+    border-right: 1px solid #1a1f35 !important;
+}
+section[data-testid="stSidebar"] * { color: #e5e7eb !important; }
 
     /* Nav buttons */
     .nav-btn {
