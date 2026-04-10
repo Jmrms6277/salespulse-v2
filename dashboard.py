@@ -3,109 +3,87 @@ import streamlit as st
 def show_dashboard():
     st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono&display=swap');
 
-* { font-family: 'Outfit', sans-serif !important; }
-.stApp { background: #060818; }
+html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
+.main { background: #0f1117; }
 
-/* Hide menu & footer */
-#MainMenu, footer { visibility: hidden; }
-
-/* 🔥 Remove header space completely */
-header {
-    visibility: hidden;
-    height: 0px !important;
-    margin: 0px !important;
-    padding: 0px !important;
+/* KPI cards */
+.kpi-card {
+    background: linear-gradient(135deg, #1e2130 0%, #252840 100%);
+    border: 1px solid #2e3250;
+    border-radius: 16px;
+    padding: 20px 24px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.kpi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(99,102,241,0.15);
+}
+.kpi-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-bottom: 6px;
+}
+.kpi-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #f9fafb;
+    font-family: 'DM Mono', monospace;
+}
+.kpi-sub {
+    font-size: 12px;
+    color: #10b981;
+    margin-top: 4px;
 }
 
-/* 🔥 Remove top spacing from main page */
-.block-container {
-    padding-top: 0rem !important;
-}
-
-/* 🔥 Remove ALL sidebar spacing */
-section[data-testid="stSidebar"] {
-    background: #0a0d1a !important;
-    border-right: 1px solid #1a1f35 !important;
-    min-width: 220px !important;
-    max-width: 220px !important;
-
-    padding: 0 !important;
-    margin: 0 !important;
-
-    transition: transform 0.3s ease, opacity 0.3s ease !important;
-}
-
-/* 🔥 Remove internal gaps */
-section[data-testid="stSidebar"] > div,
-section[data-testid="stSidebar"] .block-container,
-section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] {
-    padding: 0 !important;
-    margin: 0 !important;
-    gap: 0 !important;
-}
-
-/* 🔥 FIXED hover (no left gap now) */
-section[data-testid="stSidebar"]:not(:hover) {
-    transform: translateX(calc(-100% + 35px)) !important;
-    opacity: 0.25 !important;
-}
-
-section[data-testid="stSidebar"]:hover {
-    transform: translateX(0px) !important;
-    opacity: 1 !important;
-}
-
-/* Existing */
-[data-testid="collapsedControl"] { display: none !important; }
-span[data-testid="stIconMaterial"] { display: none !important; }
-
-.user-badge {
-    background: linear-gradient(135deg, #1e1f4b, #1a1035);
-    border: 1px solid #6366f1;
+/* Date banner */
+.date-banner {
+    background: linear-gradient(135deg, #1a1f35 0%, #1e2540 100%);
+    border: 1px solid #2e3250;
+    border-left: 4px solid #6366f1;
     border-radius: 12px;
-    padding: 12px 16px;
-    margin-bottom: 8px;
+    padding: 14px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+.date-banner-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-bottom: 4px;
+}
+.date-banner-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #a5b4fc;
+    font-family: 'DM Mono', monospace;
 }
 
-div[data-testid="stRadio"] > div { gap: 3px !important; }
-
-div[data-testid="stRadio"] label {
-    background: transparent !important;
-    border-radius: 10px !important;
-    padding: 10px 14px !important;
-    cursor: pointer !important;
-    transition: all 0.2s !important;
-    border: 1px solid transparent !important;
-    width: 100% !important;
+/* Section headers */
+.section-header {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #6366f1;
+    margin: 24px 0 12px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #1e2130;
 }
 
-div[data-testid="stRadio"] label:hover {
-    background: #1a1f35 !important;
-}
-
-div[data-testid="stRadio"] label[data-checked="true"] {
-    background: linear-gradient(135deg, #1e1f4b, #1a1035) !important;
-    border-color: #6366f1 !important;
-}
-
-div[data-testid="stRadio"] label p {
-    font-size: 13px !important;
-    font-weight: 600 !important;
-    color: #9ca3af !important;
-}
-
-div[data-testid="stRadio"] label[data-checked="true"] p {
-    color: #818cf8 !important;
-}
-
-.stButton > button {
-    background: linear-gradient(135deg, #1e1f4b, #1a1035) !important;
-    color: #818cf8 !important;
-    border: 1px solid #6366f1 !important;
-    border-radius: 10px !important;
-    font-weight: 600 !important;
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background: #0d0f1a !important;
+    border-right: 1px solid #1e2130;
 }
 </style>
 """, unsafe_allow_html=True)
