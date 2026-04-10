@@ -7,22 +7,6 @@ def show_dashboard():
 
 html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
 .main { background: #0f1117; }
-                
-/* Hide menu & footer */
-#MainMenu, footer { visibility: hidden; }
-
-/* 🔥 Remove header space completely */
-header {
-    visibility: hidden;
-    height: 0px !important;
-    margin: 0px !important;
-    padding: 0px !important;
-}
-
-/* 🔥 Remove top spacing from main page */
-.block-container {
-    padding-top: 0rem !important;
-}
 
 /* KPI cards */
 .kpi-card {
