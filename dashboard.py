@@ -27,7 +27,7 @@ def show_dashboard():
     }
     .user-badge {
         background: linear-gradient(135deg, #1e1f4b, #1a1035);
-        border: 1px solid #6366f1; border-radius: 12px;
+        border: 1px solid #6366f1; border-radius: 5px;
         padding: 12px 16px; margin-bottom: 8px;
     }
     div[data-testid="stRadio"] > div { gap: 3px !important; }
