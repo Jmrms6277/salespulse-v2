@@ -1,13 +1,14 @@
 import streamlit as st
 
+
 def show_dashboard():
     st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono&display=swap');
- 
+
 html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
 .main { background: #0f1117; }
- 
+
 /* ── FIX: Sidebar collapse/expand arrow visibility ── */
 button[data-testid="collapsedControl"] {
     color: #a5b4fc !important;
@@ -19,7 +20,7 @@ button[data-testid="collapsedControl"]:hover {
     background: rgba(99, 102, 241, 0.30) !important;
     color: #fff !important;
 }
- 
+
 /* ── User badge (was missing — caused invisible block) ── */
 .user-badge {
     background: linear-gradient(135deg, #1a1f35 0%, #1e2540 100%);
@@ -28,7 +29,7 @@ button[data-testid="collapsedControl"]:hover {
     padding: 12px 16px;
     margin: 8px 0 16px;
 }
- 
+
 /* KPI cards */
 .kpi-card {
     background: linear-gradient(135deg, #1e2130 0%, #252840 100%);
@@ -61,7 +62,7 @@ button[data-testid="collapsedControl"]:hover {
     color: #10b981;
     margin-top: 4px;
 }
- 
+
 /* Date banner */
 .date-banner {
     background: linear-gradient(135deg, #1a1f35 0%, #1e2540 100%);
@@ -88,7 +89,7 @@ button[data-testid="collapsedControl"]:hover {
     color: #a5b4fc;
     font-family: 'DM Mono', monospace;
 }
- 
+
 /* Section headers */
 .section-header {
     font-size: 13px;
@@ -100,7 +101,7 @@ button[data-testid="collapsedControl"]:hover {
     padding-bottom: 8px;
     border-bottom: 1px solid #1e2130;
 }
- 
+
 /* Sidebar */
 section[data-testid="stSidebar"] {
     background: #0d0f1a !important;
@@ -135,7 +136,11 @@ section[data-testid="stSidebar"] {
         </div>
         """, unsafe_allow_html=True)
 
-        st.markdown("<div style='font-size:10px;color:#374151;letter-spacing:2px;font-weight:700;margin:14px 0 6px;padding-left:4px;'>MAIN MENU</div>", unsafe_allow_html=True)
+        st.markdown(
+            "<div style='font-size:10px;color:#374151;letter-spacing:2px;"
+            "font-weight:700;margin:14px 0 6px;padding-left:4px;'>MAIN MENU</div>",
+            unsafe_allow_html=True
+        )
 
         page = st.radio("nav", [
             "📊  Sales",
@@ -154,7 +159,11 @@ section[data-testid="stSidebar"] {
             st.session_state.user = None
             st.rerun()
 
-        st.markdown("<div style='text-align:center;color:#1f2937;font-size:11px;margin-top:16px;'>SalesPulse v2.0<br>Entero Healthcare</div>", unsafe_allow_html=True)
+        st.markdown(
+            "<div style='text-align:center;color:#1f2937;font-size:11px;margin-top:16px;'>"
+            "SalesPulse v2.0<br>Entero Healthcare</div>",
+            unsafe_allow_html=True
+        )
 
     # ── Page Routing ──────────────────────────────────────────────────────────
     if page == "📊  Sales":
