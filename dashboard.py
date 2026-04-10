@@ -2,104 +2,113 @@ import streamlit as st
 
 def show_dashboard():
     st.markdown("""
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Mono&display=swap');
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Mono&display=swap');
 
-    * { font-family: 'Outfit', sans-serif !important; }
-    .stApp { background: #060818; }
+* { font-family: 'Outfit', sans-serif !important; }
+.stApp { background: #060818; }
 
-    /* Hide menu & footer only */
-    #MainMenu, footer { visibility: hidden; }
+/* Hide menu & footer */
+#MainMenu, footer { visibility: hidden; }
 
-    /* 🔥 FIX: completely remove header space */
-    header {
-        visibility: hidden;
-        height: 0px !important;
-        margin: 0px !important;
-        padding: 0px !important;
-    }
+/* 🔥 Remove header space completely */
+header {
+    visibility: hidden;
+    height: 0px !important;
+    margin: 0px !important;
+    padding: 0px !important;
+}
 
-    /* 🔥 FIX: remove top padding from main content */
-    .block-container {
-        padding-top: 0rem !important;
-    }
+/* 🔥 Remove top spacing from main page */
+.block-container {
+    padding-top: 0rem !important;
+}
 
-    /* 🔥 FIX: remove sidebar top gap */
-    section[data-testid="stSidebar"] > div:first-child {
-        padding-top: 0rem !important;
-        margin-top: 0rem !important;
-    }
+/* 🔥 Remove ALL sidebar spacing */
+section[data-testid="stSidebar"] {
+    background: #0a0d1a !important;
+    border-right: 1px solid #1a1f35 !important;
+    min-width: 220px !important;
+    max-width: 220px !important;
 
-    /* Existing */
-    [data-testid="collapsedControl"] { display: none !important; }
-    span[data-testid="stIconMaterial"] { display: none !important; }
+    padding: 0 !important;
+    margin: 0 !important;
 
-    section[data-testid="stSidebar"] {
-        background: #0a0d1a !important;
-        border-right: 1px solid #1a1f35 !important;
-        min-width: 220px !important;
-        max-width: 220px !important;
-        transition: transform 0.3s ease, opacity 0.3s ease !important;
-    }
+    transition: transform 0.3s ease, opacity 0.3s ease !important;
+}
 
-    section[data-testid="stSidebar"]:not(:hover) {
-        transform: translateX(-185px) !important;
-        opacity: 0.25 !important;
-    }
+/* 🔥 Remove internal gaps */
+section[data-testid="stSidebar"] > div,
+section[data-testid="stSidebar"] .block-container,
+section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] {
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 0 !important;
+}
 
-    section[data-testid="stSidebar"]:hover {
-        transform: translateX(0px) !important;
-        opacity: 1 !important;
-    }
+/* 🔥 FIXED hover (no left gap now) */
+section[data-testid="stSidebar"]:not(:hover) {
+    transform: translateX(calc(-100% + 35px)) !important;
+    opacity: 0.25 !important;
+}
 
-    .user-badge {
-        background: linear-gradient(135deg, #1e1f4b, #1a1035);
-        border: 1px solid #6366f1;
-        border-radius: 12px;
-        padding: 12px 16px;
-        margin-bottom: 8px;
-    }
+section[data-testid="stSidebar"]:hover {
+    transform: translateX(0px) !important;
+    opacity: 1 !important;
+}
 
-    div[data-testid="stRadio"] > div { gap: 3px !important; }
+/* Existing */
+[data-testid="collapsedControl"] { display: none !important; }
+span[data-testid="stIconMaterial"] { display: none !important; }
 
-    div[data-testid="stRadio"] label {
-        background: transparent !important;
-        border-radius: 10px !important;
-        padding: 10px 14px !important;
-        cursor: pointer !important;
-        transition: all 0.2s !important;
-        border: 1px solid transparent !important;
-        width: 100% !important;
-    }
+.user-badge {
+    background: linear-gradient(135deg, #1e1f4b, #1a1035);
+    border: 1px solid #6366f1;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+}
 
-    div[data-testid="stRadio"] label:hover {
-        background: #1a1f35 !important;
-    }
+div[data-testid="stRadio"] > div { gap: 3px !important; }
 
-    div[data-testid="stRadio"] label[data-checked="true"] {
-        background: linear-gradient(135deg, #1e1f4b, #1a1035) !important;
-        border-color: #6366f1 !important;
-    }
+div[data-testid="stRadio"] label {
+    background: transparent !important;
+    border-radius: 10px !important;
+    padding: 10px 14px !important;
+    cursor: pointer !important;
+    transition: all 0.2s !important;
+    border: 1px solid transparent !important;
+    width: 100% !important;
+}
 
-    div[data-testid="stRadio"] label p {
-        font-size: 13px !important;
-        font-weight: 600 !important;
-        color: #9ca3af !important;
-    }
+div[data-testid="stRadio"] label:hover {
+    background: #1a1f35 !important;
+}
 
-    div[data-testid="stRadio"] label[data-checked="true"] p {
-        color: #818cf8 !important;
-    }
+div[data-testid="stRadio"] label[data-checked="true"] {
+    background: linear-gradient(135deg, #1e1f4b, #1a1035) !important;
+    border-color: #6366f1 !important;
+}
 
-    .stButton > button {
-        background: linear-gradient(135deg, #1e1f4b, #1a1035) !important;
-        color: #818cf8 !important;
-        border: 1px solid #6366f1 !important;
-        border-radius: 10px !important;
-        font-weight: 600 !important;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+div[data-testid="stRadio"] label p {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #9ca3af !important;
+}
+
+div[data-testid="stRadio"] label[data-checked="true"] p {
+    color: #818cf8 !important;
+}
+
+.stButton > button {
+    background: linear-gradient(135deg, #1e1f4b, #1a1035) !important;
+    color: #818cf8 !important;
+    border: 1px solid #6366f1 !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
     full_name = st.session_state.get('full_name', 'User')
     role      = st.session_state.get('role', 'ASM')
