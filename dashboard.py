@@ -7,9 +7,18 @@ def load_css():
     * { font-family: 'Outfit', sans-serif !important; }
     .stApp { background: #060818; }
     #MainMenu, footer, { visibility: hidden; }
-    [data-testid="collapsedControl"] { display: none !important; }
-    span[data-testid="stIconMaterial"] { display: none !important; }
+    /* Hide sidebar collapse button permanently */
+[data-testid="collapsedControl"] { display: none !important; }
+button[data-testid="baseButton-header"] { display: none !important; }
+.st-emotion-cache-zq5wmm { display: none !important; }
+span[data-testid="stIconMaterial"] { display: none !important; }
 
+/* Force sidebar always visible */
+section[data-testid="stSidebar"] {
+    transform: none !important;
+    min-width: 240px !important;
+    max-width: 240px !important;
+}
     /* Sidebar */
     section[data-testid="stSidebar"] {
         background: #0a0d1a !important;
