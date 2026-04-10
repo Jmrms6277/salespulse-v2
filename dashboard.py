@@ -53,7 +53,14 @@ def load_css():
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Mono&display=swap');
     * { font-family: 'Outfit', sans-serif !important; }
     .stApp { background: #060818; }
-    #MainMenu,footer { visibility: hidden; }
+    #MainMenu, footer, header { visibility: hidden; }
+
+    /* Hide sidebar collapse/expand button completely */
+    [data-testid="collapsedControl"] { display: none !important; }
+    button[data-testid="baseButton-header"] { display: none !important; }
+    .st-emotion-cache-zq5wmm { display: none !important; }
+    .st-emotion-cache-1dp5vir { display: none !important; }
+    span[data-testid="stIconMaterial"] { display: none !important; }
 
     /* Sidebar */
     section[data-testid="stSidebar"] {
