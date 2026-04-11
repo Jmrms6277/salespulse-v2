@@ -175,11 +175,10 @@ def show():
 
     if 'CX_Group' in df_full.columns:
         cx_options = ["WHOLESELLER", "E-Com", "Ent_Group", "Theryco", "Trade"]
-        sel_cx_group = region_unit_cols[2].radio("CX Group",
-                                                 cx_options,
-                                                 index=0,
-                                                 horizontal=True,
-                                                 key="s_cx_group")
+        sel_cx_group = region_unit_cols[2].selectbox("CX Group",
+                                                     cx_options,
+                                                     index=0,
+                                                     key="s_cx_group")
     else:
         sel_cx_group = None
 
