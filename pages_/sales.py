@@ -106,6 +106,7 @@ def show():
 
     # Page title
     st.markdown("<div style='font-size:26px;font-weight:800;color:#f9fafb;margin-bottom:4px;'>📊 Sales Analysis</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='font-size:13px;color:#4b5563;margin-bottom:14px;'>Welcome back, {full_name} • {role} • Region: {region} • Unit: {unit}</div>", unsafe_allow_html=True)
 
     # ── Inline Filters ────────────────────────────────────────────────────────
     fc = st.columns([1.2, 1.2, 1.5, 2])
@@ -149,16 +150,6 @@ def show():
     if sel_units and 'Unit' in df.columns:   # only filter if user selected something
         df = df[df['Unit'].isin(sel_units)]
 
-    # Period banner
-    period_text = f"{from_date.strftime('%d %b %Y')} → {to_date.strftime('%d %b %Y')}" if from_date and to_date else "All time"
-    st.markdown(f"""
-    <div class="period-banner">
-        <div><div class="pb-label">📅 Period</div>
-        <div class="pb-value">{period_text}</div></div>
-        <div><div class="pb-label">👤 User</div>
-        <div class="pb-value">{full_name} ({role}, {region})</div></div>
-    </div>""", unsafe_allow_html=True)
-
     # ── KPIs ──────────────────────────────────────────────────────────────────
     total_sale     = df['Net_Sale'].sum()     if 'Net_Sale'     in df.columns else 0
     total_cost     = df['Net_Cost'].sum()     if 'Net_Cost'     in df.columns else 0
@@ -167,6 +158,16 @@ def show():
     profit  = total_sale - total_cost
     gp_pct  = (profit / total_sale * 100)        if total_sale else 0
     dis_pct = (total_discount / total_sale * 100) if total_sale else 0
+
+    # Period banner
+    if from_date and to_date:
+        st.markdown(f"""
+        <div class="period-banner">
+            <div><div class="pb-label">📅 Period</div>
+            <div class="pb-value">{from_date.strftime('%d %b %Y')} → {to_date.strftime('%d %b %Y')}</div></div>
+            <div><div class="pb-label">👤 User</div>
+            <div class="pb-value">{full_name} ({role} ,{region})</div></div>
+        </div>""", unsafe_allow_html=True)
 
     # KPI Row
     k = st.columns(6)
