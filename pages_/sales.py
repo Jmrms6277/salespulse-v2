@@ -104,42 +104,41 @@ def show():
     with st.spinner("Loading data..."):
         df_full = load_data(role, region, unit, asm_code)
 
-    # Page title + top-right period/user card
-    title_col, banner_col = st.columns([3, 1.5])
+    # Page title + period/user card with date filters on the same row
+    title_col, banner_col, from_col, to_col = st.columns([2.4, 2.6, 1, 1])
     with title_col:
         st.markdown("<div style='font-size:26px;font-weight:800;color:#f9fafb;margin-bottom:4px;'>📊 Sales Analysis</div>", unsafe_allow_html=True)
         st.markdown(f"<div style='font-size:13px;color:#6b7280;margin-bottom:14px;'>Welcome back, {full_name} • {role} • Region: {region} • Unit: {unit}</div>", unsafe_allow_html=True)
 
-    # ── Inline Filters ────────────────────────────────────────────────────────
-    fc = st.columns([1, 1, 1.5, 2])
-
+    # ── Header Filters ───────────────────────────────────────────────────────
     if 'Date' in df_full.columns:
         min_d = df_full['Date'].min().date()
         max_d = df_full['Date'].max().date()
-        from_date = fc[0].date_input("From Date", value=min_d, min_value=min_d, max_value=max_d, key="s_from")
-        to_date   = fc[1].date_input("To Date",   value=max_d, min_value=min_d, max_value=max_d, key="s_to")
+        from_date = from_col.date_input("From Date", value=min_d, min_value=min_d, max_value=max_d, key="s_from")
+        to_date   = to_col.date_input("To Date",   value=max_d, min_value=min_d, max_value=max_d, key="s_to")
     else:
         from_date = to_date = None
 
-    # Region — all selected by default
+    # Region/Unit filters on the next row
+    region_unit_cols = st.columns([1.5, 2])
+
     if 'Region' in df_full.columns and role == 'Admin':
-        sel_regions = fc[2].multiselect("Region",
-                                        df_full['Region'].dropna().unique().tolist(),
-                                        default=[],
-                                        key="s_reg")
+        sel_regions = region_unit_cols[0].multiselect("Region",
+                                                     df_full['Region'].dropna().unique().tolist(),
+                                                     default=[],
+                                                     key="s_reg")
     else:
         sel_regions = []
 
-    # Unit — filter unit options by selected region(s)
     if 'Unit' in df_full.columns:
         unit_options = df_full['Unit'].dropna().unique().tolist()
         if sel_regions and 'Region' in df_full.columns:
             unit_options = df_full[df_full['Region'].isin(sel_regions)]['Unit'].dropna().unique().tolist()
-        sel_units = fc[3].multiselect("Unit",
-                                      sorted(unit_options),
-                                      default=[],
-                                      placeholder="All Units",
-                                      key="s_unit")
+        sel_units = region_unit_cols[1].multiselect("Unit",
+                                                   sorted(unit_options),
+                                                   default=[],
+                                                   placeholder="All Units",
+                                                   key="s_unit")
     else:
         sel_units = []
 
