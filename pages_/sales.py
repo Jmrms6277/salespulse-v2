@@ -128,7 +128,7 @@ def show():
         from_date = to_date = None
 
     # Region/Unit/CX Group/Customer Type filters on the next row
-    region_unit_cols = st.columns([1.5, 1.8, 1.8, 1.8])
+    region_unit_cols = st.columns([1.5, 1.8, 3, 1.8])
 
     if 'Region' in df_full.columns and role == 'Admin':
         sel_regions = region_unit_cols[0].multiselect("Region",
@@ -162,6 +162,8 @@ def show():
 
     if 'Customer_Type' in df_full.columns:
         customer_options = df_full['Customer_Type'].dropna().unique().tolist()
+        if sel_cx_group:
+            customer_options = df_full[df_full['CX_Group'] == sel_cx_group]['Customer_Type'].dropna().unique().tolist()
         if sel_regions and 'Region' in df_full.columns:
             customer_options = df_full[df_full['Region'].isin(sel_regions)]['Customer_Type'].dropna().unique().tolist()
         if sel_units and 'Unit' in df_full.columns:
