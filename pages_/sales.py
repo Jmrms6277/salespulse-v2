@@ -112,22 +112,24 @@ def show():
     banner_placeholder = banner_col.empty()
 
     # ── Inline Filters ────────────────────────────────────────────────────────
-    fc = st.columns([1.2, 1.2, 1.5, 2])
+    date_cols = st.columns([1, 1])
 
     if 'Date' in df_full.columns:
         min_d = df_full['Date'].min().date()
         max_d = df_full['Date'].max().date()
-        from_date = fc[0].date_input("From Date", value=min_d, min_value=min_d, max_value=max_d, key="s_from")
-        to_date   = fc[1].date_input("To Date",   value=max_d, min_value=min_d, max_value=max_d, key="s_to")
+        from_date = date_cols[0].date_input("From Date", value=min_d, min_value=min_d, max_value=max_d, key="s_from")
+        to_date   = date_cols[1].date_input("To Date",   value=max_d, min_value=min_d, max_value=max_d, key="s_to")
     else:
         from_date = to_date = None
 
+    region_unit_cols = st.columns([1.5, 2])
+
     # Region — all selected by default
     if 'Region' in df_full.columns and role == 'Admin':
-        sel_regions = fc[2].multiselect("Region",
-                                        df_full['Region'].dropna().unique().tolist(),
-                                        default=[],
-                                        key="s_reg")
+        sel_regions = region_unit_cols[0].multiselect("Region",
+                                                     df_full['Region'].dropna().unique().tolist(),
+                                                     default=[],
+                                                     key="s_reg")
     else:
         sel_regions = []
 
@@ -136,11 +138,11 @@ def show():
         unit_options = df_full['Unit'].dropna().unique().tolist()
         if sel_regions and 'Region' in df_full.columns:
             unit_options = df_full[df_full['Region'].isin(sel_regions)]['Unit'].dropna().unique().tolist()
-        sel_units = fc[3].multiselect("Unit",
-                                      sorted(unit_options),
-                                      default=[],
-                                      placeholder="All Units",
-                                      key="s_unit")
+        sel_units = region_unit_cols[1].multiselect("Unit",
+                                                   sorted(unit_options),
+                                                   default=[],
+                                                   placeholder="All Units",
+                                                   key="s_unit")
     else:
         sel_units = []
 
