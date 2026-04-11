@@ -176,9 +176,10 @@ def show():
 
     if 'CX_Group' in df_full.columns:
         cx_options = df_full['CX_Group'].dropna().unique().tolist()
+        default_cx = [x for x in cx_options if x in ['ENT_GROUP', 'THERYCO']]
         sel_cx_group = region_unit_cols[2].multiselect("CX Group",
                                                       sorted(cx_options),
-                                                      default=[],
+                                                      default=default_cx,
                                                       placeholder="All CX Groups",
                                                       key="s_cx_group")
     else:
