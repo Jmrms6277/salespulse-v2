@@ -110,8 +110,18 @@ def show():
     div[role="radiogroup"] > label,
     div[role="radiogroup"] > div {
         display: inline-flex !important;
+        flex-direction: row !important;
         align-items: center !important;
         margin-bottom: 0 !important;
+    }
+    div[role="radiogroup"] > label > div,
+    div[role="radiogroup"] > label > div > div {
+        display: inline-flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+    }
+    div[role="radiogroup"] input[type="radio"] {
+        margin-right: 0.5rem !important;
     }
     </style>
     """, unsafe_allow_html=True)
