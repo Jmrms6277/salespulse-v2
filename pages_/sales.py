@@ -164,7 +164,6 @@ def show():
             <div class="pb-value">{from_date.strftime('%d %b %Y')} → {to_date.strftime('%d %b %Y')}</div></div>
             <div><div class="pb-label">👤 User</div>
             <div class="pb-value">{full_name} ({role})</div></div>
-            """<div><div class="pb-label">📋 Records</div>"""
             <div class="pb-value">{len(df):,}</div></div>
         </div>""", unsafe_allow_html=True)
 
