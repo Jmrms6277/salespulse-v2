@@ -25,40 +25,15 @@ div[data-testid="stToolbar"] { display: none !important; }
     max-width: 100% !important;
 }
 
-section[data-testid="stSidebar"] {
-    position: relative !important;
-    overflow: visible !important;
-}
-section[data-testid="stSidebar"]::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: -20px;
-    width: 20px;
-    height: 100%;
-    z-index: 9999;
-    pointer-events: auto;
-}
-
 /* Main content expands when sidebar collapses */
 section[data-testid="stMain"] {
     transition: margin-left 0.3s ease, width 0.3s ease !important;
 }
 
-section[data-testid="stSidebar"]:not(:hover) ~ section[data-testid="stMain"] {
+section[data-testid="stSidebar"]:not(:hover) ~ section[data-testid="stMain"],
+section[data-testid="stSidebar"][aria-expanded="false"] ~ section[data-testid="stMain"] {
     margin-left: 35px !important;
     width: calc(100% - 35px) !important;
-}
-
-section[data-testid="stSidebar"]:hover ~ section[data-testid="stMain"] {
-    margin-left: 220px !important;
-    width: calc(100% - 220px) !important;
-}
-@media (prefers-color-scheme: light) {
-    .stApp { background: #f8fafc !important; color: #111827 !important; }
-    .block-container { background: #f8fafc !important; color: #111827 !important; }
-    section[data-testid="stSidebar"] { background: #f8fafc !important; border-color: #e5e7eb !important; color: #111827 !important; }
-    header, footer, #MainMenu { display: none !important; }
 }
 </style>
 """, unsafe_allow_html=True)

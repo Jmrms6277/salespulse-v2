@@ -123,17 +123,6 @@ def show():
     div[role="radiogroup"] input[type="radio"] {
         margin-right: 0.5rem !important;
     }
-    [data-baseweb="tag"] {
-        height: 24px !important;
-        font-size: 12px !important;
-    }
-    [data-baseweb="multi_value"] {
-        padding: 2px 4px !important;
-        margin: 2px !important;
-    }
-    [data-baseweb="multiselect"] {
-        max-height: 40px !important;
-    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -186,7 +175,7 @@ def show():
 
     if 'CX_Group' in df_full.columns:
         cx_options = df_full['CX_Group'].dropna().unique().tolist()
-        default_cx = [x for x in cx_options if x not in ['ENT_GROUP', 'THERYCO']]
+        default_cx = [x for x in cx_options if x in ['TRADE', 'E-COM', 'WHOLESELLER']]
         sel_cx_group = region_unit_cols[2].multiselect("CX Group",
                                                       sorted(cx_options),
                                                       default=["WHOLESELLER","E-COM","TRADE"] if role != 'Admin' else default_cx,
