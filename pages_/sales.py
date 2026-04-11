@@ -151,14 +151,14 @@ def show():
         sel_units = []
 
     if 'CX_Group' in df_full.columns:
-        cx_options = ["All", "WHOLESELLER", "E-Com", "Ent_Group", "Theryco", "Trade"]
+        cx_options = ["WHOLESELLER", "E-Com", "Ent_Group", "Theryco", "Trade"]
         sel_cx_group = region_unit_cols[2].radio("CX Group",
                                                  cx_options,
                                                  index=0,
                                                  horizontal=True,
                                                  key="s_cx_group")
     else:
-        sel_cx_group = "All"
+        sel_cx_group = None
 
     # ── Apply Filters ─────────────────────────────────────────────────────────
     df = df_full.copy()
@@ -168,7 +168,7 @@ def show():
         df = df[df['Region'].isin(sel_regions)]
     if sel_units and 'Unit' in df.columns:   # only filter if user selected something
         df = df[df['Unit'].isin(sel_units)]
-    if sel_cx_group != 'All' and 'CX_Group' in df.columns:
+    if sel_cx_group and 'CX_Group' in df.columns:
         df = df[df['CX_Group'] == sel_cx_group]
 
     # ── KPIs ──────────────────────────────────────────────────────────────────
