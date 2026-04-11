@@ -134,6 +134,18 @@ def show():
     [data-baseweb="multiselect"] {
         max-height: 40px !important;
     }
+    @media (prefers-color-scheme: light) {
+        .kpi-card { background:linear-gradient(145deg,#f3f4f6,#ffffff); border:1px solid #d1d5db; }
+        .kpi-label { color:#6b7280; }
+        .kpi-value { color:#1f2937; }
+        .kpi-sub { color:#059669; }
+        .period-banner { background:linear-gradient(135deg,#f3f4f6,#ffffff); border:1px solid #d1d5db; border-left:4px solid #6366f1; }
+        .pb-label { color:#4b5563; }
+        .pb-value { color:#4f46e5; }
+        .sec-header { color:#6366f1; border-bottom:1px solid #e5e7eb; }
+        .stTabs [data-baseweb="tab-list"] { background:#f3f4f6 !important; border:1px solid #d1d5db !important; }
+        .stTabs [data-baseweb="tab"] { color:#4b5563 !important; }
+    }
     </style>
     """, unsafe_allow_html=True)
 
