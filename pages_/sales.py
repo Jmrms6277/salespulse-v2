@@ -100,11 +100,18 @@ def show():
     }
     .stTabs [data-baseweb="tab-highlight"],
     .stTabs [data-baseweb="tab-border"] { display:none !important; }
-    [data-baseweb="radio-group"] > div {
+    div[role="radiogroup"], [data-baseweb="radio-group"] > div {
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: wrap !important;
         gap: 0.75rem !important;
+        align-items: center !important;
+    }
+    div[role="radiogroup"] > label,
+    div[role="radiogroup"] > div {
+        display: inline-flex !important;
+        align-items: center !important;
+        margin-bottom: 0 !important;
     }
     </style>
     """, unsafe_allow_html=True)
