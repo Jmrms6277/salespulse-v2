@@ -127,8 +127,8 @@ def show():
     else:
         from_date = to_date = None
 
-    # Region/Unit/CX Group filters on the next row
-    region_unit_cols = st.columns([1.5, 1.8, 3.2])
+    # Region/Unit/CX Group/Customer Type filters on the next row
+    region_unit_cols = st.columns([1.5, 1.8, 1.8, 1.8])
 
     if 'Region' in df_full.columns and role == 'Admin':
         sel_regions = region_unit_cols[0].multiselect("Region",
@@ -160,6 +160,20 @@ def show():
     else:
         sel_cx_group = None
 
+    if 'Customer_Type' in df_full.columns:
+        customer_options = df_full['Customer_Type'].dropna().unique().tolist()
+        if sel_regions and 'Region' in df_full.columns:
+            customer_options = df_full[df_full['Region'].isin(sel_regions)]['Customer_Type'].dropna().unique().tolist()
+        if sel_units and 'Unit' in df_full.columns:
+            customer_options = df_full[df_full['Unit'].isin(sel_units)]['Customer_Type'].dropna().unique().tolist()
+        sel_customer_types = region_unit_cols[3].multiselect("Customer Type",
+                                                            sorted(customer_options),
+                                                            default=[],
+                                                            placeholder="All Customer Types",
+                                                            key="s_cust_type")
+    else:
+        sel_customer_types = []
+
     # ── Apply Filters ─────────────────────────────────────────────────────────
     df = df_full.copy()
     if from_date and to_date and 'Date' in df.columns:
@@ -170,6 +184,8 @@ def show():
         df = df[df['Unit'].isin(sel_units)]
     if sel_cx_group and 'CX_Group' in df.columns:
         df = df[df['CX_Group'] == sel_cx_group]
+    if sel_customer_types and 'Customer_Type' in df.columns:
+        df = df[df['Customer_Type'].isin(sel_customer_types)]
 
     # ── KPIs ──────────────────────────────────────────────────────────────────
     total_sale     = df['Net_Sale'].sum()     if 'Net_Sale'     in df.columns else 0
