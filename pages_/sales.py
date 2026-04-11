@@ -128,11 +128,14 @@ def show():
     else:
         sel_regions = []
 
-    # Unit — EMPTY by default (user selects what they want)
+    # Unit — filter unit options by selected region(s)
     if 'Unit' in df_full.columns:
+        unit_options = df_full['Unit'].dropna().unique().tolist()
+        if sel_regions and 'Region' in df_full.columns:
+            unit_options = df_full[df_full['Region'].isin(sel_regions)]['Unit'].dropna().unique().tolist()
         sel_units = fc[3].multiselect("Unit",
-                                      sorted(df_full['Unit'].dropna().unique().tolist()),
-                                      default=[],   # ← empty by default
+                                      sorted(unit_options),
+                                      default=[],
                                       placeholder="All Units",
                                       key="s_unit")
     else:
