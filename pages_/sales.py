@@ -128,7 +128,7 @@ def show():
         from_date = to_date = None
 
     # Region/Unit/CX Group filters on the next row
-    region_unit_cols = st.columns([1.5, 1.8, 1.8])
+    region_unit_cols = st.columns([1.5, 1.8, 3.2])
 
     if 'Region' in df_full.columns and role == 'Admin':
         sel_regions = region_unit_cols[0].multiselect("Region",
