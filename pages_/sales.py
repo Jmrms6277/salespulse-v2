@@ -104,9 +104,12 @@ def show():
     with st.spinner("Loading data..."):
         df_full = load_data(role, region, unit, asm_code)
 
-    # Page title
-    st.markdown("<div style='font-size:26px;font-weight:800;color:#f9fafb;margin-bottom:4px;'>📊 Sales Analysis</div>", unsafe_allow_html=True)
-    st.markdown(f"<div style='font-size:13px;color:#4b5563;margin-bottom:14px;'>Welcome back, {full_name} • {role} • Region: {region} • Unit: {unit}</div>", unsafe_allow_html=True)
+    # Page title + top-right period/user card placeholder
+    title_col, banner_col = st.columns([3, 2])
+    with title_col:
+        st.markdown("<div style='font-size:26px;font-weight:800;color:#f9fafb;margin-bottom:4px;'>📊 Sales Analysis</div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='font-size:13px;color:#6b7280;margin-bottom:14px;'>Welcome back, {full_name} • {role} • Region: {region} • Unit: {unit}</div>", unsafe_allow_html=True)
+    banner_placeholder = banner_col.empty()
 
     # ── Inline Filters ────────────────────────────────────────────────────────
     fc = st.columns([1.2, 1.2, 1.5, 2])
@@ -159,15 +162,16 @@ def show():
     gp_pct  = (profit / total_sale * 100)        if total_sale else 0
     dis_pct = (total_discount / total_sale * 100) if total_sale else 0
 
-    # Period banner
-    if from_date and to_date:
-        st.markdown(f"""
-        <div class="period-banner">
-            <div><div class="pb-label">📅 Period</div>
-            <div class="pb-value">{from_date.strftime('%d %b %Y')} → {to_date.strftime('%d %b %Y')}</div></div>
-            <div><div class="pb-label">👤 User</div>
-            <div class="pb-value">{full_name} ({role} ,{region})</div></div>
-        </div>""", unsafe_allow_html=True)
+    # Top-right period/user card
+    period_text = f"{from_date.strftime('%d %b %Y')} → {to_date.strftime('%d %b %Y')}" if from_date and to_date else "All time"
+    user_text = f"{full_name} ({role} • {region} • {unit})"
+    banner_placeholder.markdown(f"""
+    <div class="period-banner" style="margin-top:16px;">
+        <div><div class="pb-label">📅 Period</div>
+        <div class="pb-value">{period_text}</div></div>
+        <div><div class="pb-label">👤 User</div>
+        <div class="pb-value">{user_text}</div></div>
+    </div>""", unsafe_allow_html=True)
 
     # KPI Row
     k = st.columns(6)
