@@ -26,7 +26,6 @@ section[data-testid="stSidebar"]:hover {
     max-width: 220px !important;
     opacity: 1 !important;
 }
-}
 
     @media (prefers-color-scheme: light) {
         .stApp { background: #f8f9fa; }

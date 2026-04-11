@@ -46,6 +46,7 @@ section[data-testid="stSidebar"]:hover ~ section[data-testid="stMain"] {
     h1, h2, h3, h4, h5, h6 { color: #1f2937 !important; }
     p, span, div, label { color: #374151 !important; }
     input, select, textarea { background: #ffffff !important; color: #1f2937 !important; border: 1px solid #d1d5db !important; }
+    section[data-testid="stSidebar"] { background: #ffffff !important; border-right: 1px solid #e5e7eb !important; }
 }
 </style>
 """, unsafe_allow_html=True)
