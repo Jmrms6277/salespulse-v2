@@ -1,114 +1,62 @@
 import streamlit as st
 
-
 def show_dashboard():
     st.markdown("""
-<style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono&display=swap');
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Mono&display=swap');
+    * { font-family: 'Outfit', sans-serif !important; }
+    .stApp { background: #060818; }
+    #MainMenu, footer, header { visibility: hidden; }
+    [data-testid="collapsedControl"] { display: none !important; }
+    span[data-testid="stIconMaterial"] { display: none !important; }
 
-html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
-.main { background: #0f1117; }
-
-/* ── FIX: Sidebar collapse/expand arrow visibility ── */
-button[data-testid="collapsedControl"] {
-    color: #a5b4fc !important;
-    background: rgba(99, 102, 241, 0.12) !important;
-    border-radius: 8px !important;
-    border: 1px solid #2e3250 !important;
+    section[data-testid="stSidebar"] {
+    background: #0a0d1a !important;
+    border-right: 1px solid #1a1f35 !important;
+    width: 35px !important;
+    min-width: 35px !important;
+    max-width: 35px !important;
+    transition: width 0.3s ease, opacity 0.3s ease !important;
+    z-index: 999 !important;
+    opacity: 0.25 !important;
 }
-button[data-testid="collapsedControl"]:hover {
-    background: rgba(99, 102, 241, 0.30) !important;
-    color: #fff !important;
+section[data-testid="stSidebar"]:hover {
+    width: 220px !important;
+    min-width: 220px !important;
+    max-width: 220px !important;
+    opacity: 1 !important;
 }
-
-/* ── User badge (was missing — caused invisible block) ── */
-.user-badge {
-    background: linear-gradient(135deg, #1a1f35 0%, #1e2540 100%);
-    border: 1px solid #2e3250;
-    border-radius: 12px;
-    padding: 12px 16px;
-    margin: 8px 0 16px;
-}
-
-/* KPI cards */
-.kpi-card {
-    background: linear-gradient(135deg, #1e2130 0%, #252840 100%);
-    border: 1px solid #2e3250;
-    border-radius: 16px;
-    padding: 20px 24px;
-    text-align: center;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-.kpi-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(99,102,241,0.15);
-}
-.kpi-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #6b7280;
-    margin-bottom: 6px;
-}
-.kpi-value {
-    font-size: 28px;
-    font-weight: 700;
-    color: #f9fafb;
-    font-family: 'DM Mono', monospace;
-}
-.kpi-sub {
-    font-size: 12px;
-    color: #10b981;
-    margin-top: 4px;
 }
 
-/* Date banner */
-.date-banner {
-    background: linear-gradient(135deg, #1a1f35 0%, #1e2540 100%);
-    border: 1px solid #2e3250;
-    border-left: 4px solid #6366f1;
-    border-radius: 12px;
-    padding: 14px 24px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 40px;
-}
-.date-banner-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #6b7280;
-    margin-bottom: 4px;
-}
-.date-banner-value {
-    font-size: 16px;
-    font-weight: 700;
-    color: #a5b4fc;
-    font-family: 'DM Mono', monospace;
-}
-
-/* Section headers */
-.section-header {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #6366f1;
-    margin: 24px 0 12px 0;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #1e2130;
-}
-
-/* Sidebar */
-section[data-testid="stSidebar"] {
-    background: #0d0f1a !important;
-    border-right: 1px solid #1e2130;
-}
-</style>
-""", unsafe_allow_html=True)
+    .user-badge {
+        background: linear-gradient(135deg, #1e1f4b, #1a1035);
+        border: 1px solid #6366f1; border-radius: 12px;
+        padding: 12px 16px; margin-bottom: 8px;
+    }
+    div[data-testid="stRadio"] > div { gap: 0px !important; }
+    div[data-testid="stRadio"] label {
+        background: transparent !important; border-radius: 10px !important;
+        padding: 6px 12px !important; cursor: pointer !important;
+        transition: all 0.2s !important; border: 1px solid transparent !important;
+        width: 100% !important;
+        margin:0!important;        
+    }
+    div[data-testid="stRadio"] label:hover { background: #1a1f35 !important; }
+    div[data-testid="stRadio"] label[data-checked="true"] {
+        background: linear-gradient(135deg, #1e1f4b, #1a1035) !important;
+        border-color: #6366f1 !important;
+    }
+    div[data-testid="stRadio"] label p {
+        font-size: 13px !important; font-weight: 600 !important; color: #9ca3af !important;
+    }
+    div[data-testid="stRadio"] label[data-checked="true"] p { color: #818cf8 !important; }
+    .stButton > button {
+        background: linear-gradient(135deg, #1e1f4b, #1a1035) !important;
+        color: #818cf8 !important; border: 1px solid #6366f1 !important;
+        border-radius: 10px !important; font-weight: 600 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
     full_name = st.session_state.get('full_name', 'User')
     role      = st.session_state.get('role', 'ASM')
@@ -136,11 +84,7 @@ section[data-testid="stSidebar"] {
         </div>
         """, unsafe_allow_html=True)
 
-        st.markdown(
-            "<div style='font-size:10px;color:#374151;letter-spacing:2px;"
-            "font-weight:700;margin:14px 0 6px;padding-left:4px;'>MAIN MENU</div>",
-            unsafe_allow_html=True
-        )
+        st.markdown("<div style='font-size:10px;color:#374151;letter-spacing:2px;font-weight:700;margin:14px 0 6px;padding-left:4px;'>MAIN MENU</div>", unsafe_allow_html=True)
 
         page = st.radio("nav", [
             "📊  Sales",
@@ -159,11 +103,7 @@ section[data-testid="stSidebar"] {
             st.session_state.user = None
             st.rerun()
 
-        st.markdown(
-            "<div style='text-align:center;color:#1f2937;font-size:11px;margin-top:16px;'>"
-            "SalesPulse v2.0<br>Entero Healthcare</div>",
-            unsafe_allow_html=True
-        )
+        st.markdown("<div style='text-align:center;color:#1f2937;font-size:11px;margin-top:16px;'>SalesPulse v2.0<br>Entero Healthcare</div>", unsafe_allow_html=True)
 
     # ── Page Routing ──────────────────────────────────────────────────────────
     if page == "📊  Sales":

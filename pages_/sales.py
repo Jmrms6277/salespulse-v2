@@ -52,7 +52,7 @@ def show():
     .kpi-card {
         background:linear-gradient(145deg,#0d1117,#111827);
         border:1px solid #1f2937; border-radius:18px;
-        padding:20px 20px; position:relative; overflow:hidden;
+        padding:20px; position:relative; overflow:hidden;
         transition:transform 0.2s,box-shadow 0.2s;
     }
     .kpi-card::before {
@@ -104,12 +104,13 @@ def show():
     with st.spinner("Loading data..."):
         df_full = load_data(role, region, unit, asm_code)
 
-    # ── Page title ────────────────────────────────────────────────────────────
+    # Page title
     st.markdown("<div style='font-size:26px;font-weight:800;color:#f9fafb;margin-bottom:4px;'>📊 Sales Analysis</div>", unsafe_allow_html=True)
-    st.markdown(f"<div style='font-size:13px;color:#4b5563;margin-bottom:16px;'>Welcome back, {full_name} • {role}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='font-size:13px;color:#4b5563;margin-bottom:14px;'>Welcome back, {full_name} • {role}</div>", unsafe_allow_html=True)
 
     # ── Inline Filters ────────────────────────────────────────────────────────
-    fc = st.columns([1.2, 1.2, 2, 2])
+    fc = st.columns([1.2, 1.2, 1.5, 2])
+
     if 'Date' in df_full.columns:
         min_d = df_full['Date'].min().date()
         max_d = df_full['Date'].max().date()
@@ -118,15 +119,22 @@ def show():
     else:
         from_date = to_date = None
 
+    # Region — all selected by default
     if 'Region' in df_full.columns and role == 'Admin':
-        sel_regions = fc[2].multiselect("Region", df_full['Region'].dropna().unique().tolist(),
-                                        default=df_full['Region'].dropna().unique().tolist(), key="s_reg")
+        sel_regions = fc[2].multiselect("Region",
+                                        df_full['Region'].dropna().unique().tolist(),
+                                        default=df_full['Region'].dropna().unique().tolist(),
+                                        key="s_reg")
     else:
         sel_regions = []
 
+    # Unit — EMPTY by default (user selects what they want)
     if 'Unit' in df_full.columns:
-        sel_units = fc[3].multiselect("Unit", sorted(df_full['Unit'].dropna().unique().tolist()),
-                                      default=sorted(df_full['Unit'].dropna().unique().tolist()), key="s_unit")
+        sel_units = fc[3].multiselect("Unit",
+                                      sorted(df_full['Unit'].dropna().unique().tolist()),
+                                      default=[],   # ← empty by default
+                                      placeholder="All Units",
+                                      key="s_unit")
     else:
         sel_units = []
 
@@ -136,7 +144,7 @@ def show():
         df = df[(df['Date'].dt.date >= from_date) & (df['Date'].dt.date <= to_date)]
     if sel_regions and 'Region' in df.columns:
         df = df[df['Region'].isin(sel_regions)]
-    if sel_units and 'Unit' in df.columns:
+    if sel_units and 'Unit' in df.columns:   # only filter if user selected something
         df = df[df['Unit'].isin(sel_units)]
 
     # ── KPIs ──────────────────────────────────────────────────────────────────
@@ -160,7 +168,7 @@ def show():
             <div class="pb-value">{len(df):,}</div></div>
         </div>""", unsafe_allow_html=True)
 
-    # KPI cards
+    # KPI Row
     k = st.columns(6)
     for col, icon, label, val, sub in [
         (k[0], "💰", "NET SALES",    fmt(total_sale),     ""),
