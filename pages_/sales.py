@@ -123,7 +123,7 @@ def show():
     if 'Region' in df_full.columns and role == 'Admin':
         sel_regions = fc[2].multiselect("Region",
                                         df_full['Region'].dropna().unique().tolist(),
-                                        default=df_full['Region'].dropna().unique().tolist(),
+                                        default=[],
                                         key="s_reg")
     else:
         sel_regions = []
