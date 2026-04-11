@@ -26,7 +26,22 @@ section[data-testid="stSidebar"]:hover {
     max-width: 220px !important;
     opacity: 1 !important;
 }
-}
+
+    @media (prefers-color-scheme: light) {
+        .stApp { background: #f8f9fa; }
+        section[data-testid="stSidebar"] {
+            background: #ffffff !important;
+            border-right: 1px solid #e5e7eb !important;
+        }
+        .user-badge { background: linear-gradient(135deg, #f3f4f6, #e5e7eb); border-color: #a5b4fc; }
+        div[data-testid="stRadio"] label { color: #374151 !important; }
+        div[data-testid="stRadio"] label:hover { background: #f3f4f6 !important; }
+        div[data-testid="stRadio"] label[data-checked="true"] {
+            background: linear-gradient(135deg, #e5e7eb, #d1d5db) !important;
+            border-color: #6366f1 !important;
+        }
+        div[data-testid="stRadio"] label p { color: #4b5563 !important; }
+    }
 
     .user-badge {
         background: linear-gradient(135deg, #1e1f4b, #1a1035);
