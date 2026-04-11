@@ -174,7 +174,7 @@ def show():
         sel_units = []
 
     if 'CX_Group' in df_full.columns:
-        cx_options = ["WHOLESELLER", "E-Com", "Ent_Group", "Theryco", "Trade"]
+        cx_options = ["All CX Groups", "WHOLESELLER", "E-Com", "Ent_Group", "Theryco", "Trade"]
         sel_cx_group = region_unit_cols[2].selectbox("CX Group",
                                                      cx_options,
                                                      index=0,
@@ -183,13 +183,14 @@ def show():
         sel_cx_group = None
 
     if 'Customer_Type' in df_full.columns:
-        customer_options = df_full['Customer_Type'].dropna().unique().tolist()
-        if sel_cx_group:
-            customer_options = df_full[df_full['CX_Group'] == sel_cx_group]['Customer_Type'].dropna().unique().tolist()
+        customer_filter = df_full.copy()
+        if sel_cx_group and sel_cx_group != "All CX Groups":
+            customer_filter = customer_filter[customer_filter['CX_Group'] == sel_cx_group]
         if sel_regions and 'Region' in df_full.columns:
-            customer_options = df_full[df_full['Region'].isin(sel_regions)]['Customer_Type'].dropna().unique().tolist()
+            customer_filter = customer_filter[customer_filter['Region'].isin(sel_regions)]
         if sel_units and 'Unit' in df_full.columns:
-            customer_options = df_full[df_full['Unit'].isin(sel_units)]['Customer_Type'].dropna().unique().tolist()
+            customer_filter = customer_filter[customer_filter['Unit'].isin(sel_units)]
+        customer_options = customer_filter['Customer_Type'].dropna().unique().tolist()
         sel_customer_types = region_unit_cols[3].multiselect("Customer Type",
                                                             sorted(customer_options),
                                                             default=[],
@@ -206,7 +207,7 @@ def show():
         df = df[df['Region'].isin(sel_regions)]
     if sel_units and 'Unit' in df.columns:   # only filter if user selected something
         df = df[df['Unit'].isin(sel_units)]
-    if sel_cx_group and 'CX_Group' in df.columns:
+    if sel_cx_group and sel_cx_group != "All CX Groups" and 'CX_Group' in df.columns:
         df = df[df['CX_Group'] == sel_cx_group]
     if sel_customer_types and 'Customer_Type' in df.columns:
         df = df[df['Customer_Type'].isin(sel_customer_types)]
