@@ -106,7 +106,7 @@ def show():
 
     # Page title
     st.markdown("<div style='font-size:26px;font-weight:800;color:#f9fafb;margin-bottom:4px;'>📊 Sales Analysis</div>", unsafe_allow_html=True)
-    st.markdown(f"<div style='font-size:13px;color:#4b5563;margin-bottom:14px;'>Welcome back, {full_name} • {role}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='font-size:13px;color:#4b5563;margin-bottom:14px;'>Welcome back, {full_name} • {role} • Region: {region} • Unit: {unit}</div>", unsafe_allow_html=True)
 
     # ── Inline Filters ────────────────────────────────────────────────────────
     fc = st.columns([1.2, 1.2, 1.5, 2])
