@@ -100,6 +100,12 @@ def show():
     }
     .stTabs [data-baseweb="tab-highlight"],
     .stTabs [data-baseweb="tab-border"] { display:none !important; }
+    [data-baseweb="radio-group"] > div {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 0.75rem !important;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -128,7 +134,7 @@ def show():
         from_date = to_date = None
 
     # Region/Unit/CX Group/Customer Type filters on the next row
-    region_unit_cols = st.columns([1.5, 1.8, 3, 1.8])
+    region_unit_cols = st.columns([1.5, 1.8, 3.8, 1.8])
 
     if 'Region' in df_full.columns and role == 'Admin':
         sel_regions = region_unit_cols[0].multiselect("Region",
