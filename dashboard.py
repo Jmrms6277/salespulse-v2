@@ -12,20 +12,31 @@ def show_dashboard():
 
     section[data-testid="stSidebar"] {
     background: #0a0d1a !important;
-    border-right: 1px solid #1a1f35 !important;
+    border-right: 1px solid #1f2937 !important;
     width: 35px !important;
     min-width: 35px !important;
     max-width: 35px !important;
     transition: width 0.3s ease, opacity 0.3s ease !important;
     z-index: 999 !important;
     opacity: 0.25 !important;
+    position: relative !important;
+    overflow: visible !important;
+}
+section[data-testid="stSidebar"]::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: -20px;
+    width: 20px;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: auto;
 }
 section[data-testid="stSidebar"]:hover {
     width: 220px !important;
     min-width: 220px !important;
     max-width: 220px !important;
     opacity: 1 !important;
-}
 }
 
     .user-badge {
@@ -54,6 +65,17 @@ section[data-testid="stSidebar"]:hover {
         background: linear-gradient(135deg, #1e1f4b, #1a1035) !important;
         color: #818cf8 !important; border: 1px solid #6366f1 !important;
         border-radius: 10px !important; font-weight: 600 !important;
+    }
+    @media (prefers-color-scheme: light) {
+        .stApp { background: #f8fafc !important; color: #111827 !important; }
+        section[data-testid="stSidebar"] { background: #f8fafc !important; border-color: #e5e7eb !important; color: #111827 !important; }
+        .user-badge { background: #ffffff !important; border-color: #d1d5db !important; }
+        div[data-testid="stRadio"] label { background: #f8fafc !important; border-color: #e5e7eb !important; }
+        div[data-testid="stRadio"] label:hover { background: #e5e7eb !important; }
+        div[data-testid="stRadio"] label p { color: #1f2937 !important; }
+        div[data-testid="stRadio"] label[data-checked="true"] { background: #f3f4f6 !important; border-color: #6366f1 !important; }
+        div[data-testid="stRadio"] label[data-checked="true"] p { color: #374151 !important; }
+        .stButton > button { background: #ffffff !important; color: #1f2937 !important; border-color: #d1d5db !important; }
     }
     </style>
     """, unsafe_allow_html=True)
