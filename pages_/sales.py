@@ -31,10 +31,11 @@ def load_data(role, region, unit, asm_code):
         df['Year']  = df['Date'].dt.year.astype(str)
     if 'Customer_Type' in df.columns:
         mapping = {
-            'WHOLESELLER': 'WHOLESELLER',
-            'E-Commerce': 'E-Com',
-            'Entero Group': 'Ent_Group',
-            'Theryco': 'Theryco'
+            'WHOLE SELLER': 'WHOLESELLER',
+            'E-COMMERCE': 'E-COM',
+            'ENTERO GROUP': 'ENT_GROUP',
+            'THERYCO': 'THERYCO',
+            'NEW CUSTOMER':'NEW CX'
         }
         df['CX_Group'] = df['Customer_Type'].map(mapping).fillna('Trade')
     if role != 'Admin':
@@ -174,20 +175,19 @@ def show():
         sel_units = []
 
     if 'CX_Group' in df_full.columns:
-        cx_options = ["Select CX Group", "WHOLESELLER", "E-Com", "Ent_Group", "Theryco", "Trade"]
-        sel_cx_group = region_unit_cols[2].selectbox("CX Group",
-                                                     cx_options,
-                                                     index=0,
-                                                     key="s_cx_group")
-        if sel_cx_group == "Select CX Group":
-            sel_cx_group = None
+        cx_options = df_full['CX_Group'].dropna().unique().tolist()
+        sel_cx_group = region_unit_cols[2].multiselect("CX Group",
+                                                      sorted(cx_options),
+                                                      default=[],
+                                                      placeholder="All CX Groups",
+                                                      key="s_cx_group")
     else:
-        sel_cx_group = None
+        sel_cx_group = []
 
     if 'Customer_Type' in df_full.columns:
         customer_filter = df_full.copy()
-        if sel_cx_group is not None and sel_cx_group != "Select CX Group":
-            customer_filter = customer_filter[customer_filter['CX_Group'] == sel_cx_group]
+        if sel_cx_group and 'CX_Group' in df_full.columns:
+            customer_filter = customer_filter[customer_filter['CX_Group'].isin(sel_cx_group)]
         if sel_regions and 'Region' in df_full.columns:
             customer_filter = customer_filter[customer_filter['Region'].isin(sel_regions)]
         if sel_units and 'Unit' in df_full.columns:
@@ -207,10 +207,10 @@ def show():
         df = df[(df['Date'].dt.date >= from_date) & (df['Date'].dt.date <= to_date)]
     if sel_regions and 'Region' in df.columns:
         df = df[df['Region'].isin(sel_regions)]
-    if sel_units and 'Unit' in df.columns:   # only filter if user selected something
+    if sel_units and 'Unit' in df.columns:
         df = df[df['Unit'].isin(sel_units)]
     if sel_cx_group and 'CX_Group' in df.columns:
-        df = df[df['CX_Group'] == sel_cx_group]
+        df = df[df['CX_Group'].isin(sel_cx_group)]
     if sel_customer_types and 'Customer_Type' in df.columns:
         df = df[df['Customer_Type'].isin(sel_customer_types)]
 
