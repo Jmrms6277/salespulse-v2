@@ -34,10 +34,9 @@ def load_data(role, region, unit, asm_code):
             'WHOLE SELLER': 'WHOLESELLER',
             'E-COMMERCE': 'E-COM',
             'ENTERO GROUP': 'ENT_GROUP',
-            'THERYCO': 'THERYCO',
-            'NEW CUSTOMER':'NEW CX'
+            'THERYCO': 'THERYCO'
         }
-        df['CX_Group'] = df['Customer_Type'].map(mapping).fillna('Trade')
+        df['CX_Group'] = df['Customer_Type'].map(mapping).fillna('TRADE')
     if role != 'Admin':
         if region != 'ALL' and 'Region' in df.columns:
             df = df[df['Region'] == region]
@@ -179,7 +178,7 @@ def show():
         default_cx = [x for x in cx_options if x in ['ENT_GROUP', 'THERYCO']]
         sel_cx_group = region_unit_cols[2].multiselect("CX Group",
                                                       sorted(cx_options),
-                                                      default=default_cx,
+                                                      default=["WHOLESELLER","E-COM","TRADE"] if role != 'Admin' else default_cx,
                                                       placeholder="All CX Groups",
                                                       key="s_cx_group")
     else:
