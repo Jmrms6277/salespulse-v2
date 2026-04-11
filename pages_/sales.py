@@ -163,7 +163,7 @@ def show():
             <div><div class="pb-label">📅 Period</div>
             <div class="pb-value">{from_date.strftime('%d %b %Y')} → {to_date.strftime('%d %b %Y')}</div></div>
             <div><div class="pb-label">👤 User</div>
-            <div class="pb-value">{full_name} ({role})</div></div>
+            <div class="pb-value">{full_name} ({role} ,{region})</div></div>
         </div>""", unsafe_allow_html=True)
 
     # KPI Row
