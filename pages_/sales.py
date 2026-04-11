@@ -316,18 +316,18 @@ def show():
 
     # Tab 5: Trend
     with tab5:
-        if 'Month' in df.columns:
-            mdf = df.groupby('Month', as_index=False).agg(
+        if 'Date' in df.columns:
+            mdf = df.groupby('Date', as_index=False).agg(
                 Net_Sale=('Net_Sale','sum'), Net_Discount=('Net_Discount','sum'),
                 Net_Cost=('Net_Cost','sum')
-            ).sort_values('Month')
+            ).sort_values('Date')
             mdf['Profit'] = mdf['Net_Sale'] - mdf['Net_Cost']
             fig = go.Figure()
-            fig.add_trace(go.Scatter(x=mdf['Month'], y=mdf['Net_Sale'], mode='lines+markers',
+            fig.add_trace(go.Scatter(x=mdf['Date'], y=mdf['Net_Sale'], mode='lines+markers',
                                      name='Net Sale', line=dict(color='#6366f1', width=3), marker=dict(size=8)))
-            fig.add_trace(go.Scatter(x=mdf['Month'], y=mdf['Profit'], mode='lines+markers',
+            fig.add_trace(go.Scatter(x=mdf['Date'], y=mdf['Profit'], mode='lines+markers',
                                      name='Profit', line=dict(color='#10b981', width=2, dash='dot'), marker=dict(size=6)))
-            fig.add_trace(go.Bar(x=mdf['Month'], y=mdf['Net_Discount'], name='Discount',
+            fig.add_trace(go.Bar(x=mdf['Date'], y=mdf['Net_Discount'], name='Discount',
                                  marker_color='#f59e0b', opacity=0.5, yaxis='y2'))
             fig.update_layout(title='Month-wise Sales Trend', template='plotly_dark',
                               paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)',
@@ -335,15 +335,15 @@ def show():
                               legend=dict(orientation='h', yanchor='bottom', y=1.02))
             st.plotly_chart(fig, use_container_width=True)
             if 'Region' in df.columns:
-                mrdf = df.groupby(['Month','Region'], as_index=False)['Net_Sale'].sum().sort_values('Month')
-                fig2 = px.line(mrdf, x='Month', y='Net_Sale', color='Region',
+                mrdf = df.groupby(['Date','Region'], as_index=False)['Net_Sale'].sum().sort_values('Date')
+                fig2 = px.line(mrdf, x='Date', y='Net_Sale', color='Region',
                                title='Month-wise by Region', markers=True,
                                color_discrete_sequence=COLORS, template='plotly_dark')
                 fig2.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
                 st.plotly_chart(fig2, use_container_width=True)
             if 'Unit' in df.columns:
-                mudf = df.groupby(['Month','Unit'], as_index=False)['Net_Sale'].sum().sort_values('Month')
-                fig3 = px.line(mudf, x='Month', y='Net_Sale', color='Unit',
+                mudf = df.groupby(['Date','Unit'], as_index=False)['Net_Sale'].sum().sort_values('Date')
+                fig3 = px.line(mudf, x='Date', y='Net_Sale', color='Unit',
                                title='Month-wise by Unit', markers=True,
                                color_discrete_sequence=COLORS, template='plotly_dark')
                 fig3.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
