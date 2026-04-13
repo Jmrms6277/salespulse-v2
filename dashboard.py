@@ -68,7 +68,7 @@ section[data-testid="stSidebar"]:hover {
             <div style='font-size:20px; font-weight:800;
                 background:linear-gradient(135deg,#818cf8,#c084fc);
                 -webkit-background-clip:text; -webkit-text-fill-color:transparent;'>
-                SalesPulse
+                Entero Sales Dashboard
             </div>
             <div style='font-size:10px; color:#374151; letter-spacing:1.5px; margin-top:2px;'>
                 PHARMA INTELLIGENCE
