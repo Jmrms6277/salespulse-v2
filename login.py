@@ -68,7 +68,7 @@ def show_login():
             <div style='font-size:32px; font-weight:800;
                 background:linear-gradient(135deg,#818cf8,#c084fc);
                 -webkit-background-clip:text; -webkit-text-fill-color:transparent;'>
-                Entero  - Retail Sales Pulse
+                Entero SalesPulse
             </div>
             <div style='font-size:12px; color:#4b5563; letter-spacing:1px; margin-bottom:36px;'>
                 PHARMA SALES INTELLIGENCE PLATFORM
