@@ -4,7 +4,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 from sqlalchemy import create_engine
 from urllib.parse import quote_plus
-from dateutil.relativedelta import relativedelta
 import io
 
 @st.cache_resource
@@ -28,7 +27,7 @@ def load_data(role, region, unit, asm_code):
             df[col] = pd.to_numeric(df[col], errors='coerce')
     if 'Date' in df.columns:
         df['Date']  = pd.to_datetime(df['Date'], errors='coerce')
-        df['Month'] = df['Date'].dt.to_period('M')
+        df['Month'] = df['Date'].dt.to_period('M').astype(str)
         df['Year']  = df['Date'].dt.year.astype(str)
     if 'Customer_Type' in df.columns:
         mapping = {
@@ -144,31 +143,10 @@ def show():
 
     # ── Header Filters ───────────────────────────────────────────────────────
     if 'Date' in df_full.columns:
-        # 👉 Latest available date (running month)
+        min_d = df_full['Date'].min().date()
         max_d = df_full['Date'].max().date()
-
-        # 👉 6 months back from 1st of max month
-        min_d = max_d.replace(day=1) - relativedelta(months=6)
-
-        # 👉 Safety check
-        data_min = df_full['Date'].min().date()
-        min_d = max(min_d, data_min)
-
-        from_date = from_col.date_input(
-            "From Date",
-            value=min_d,
-            min_value=min_d,
-            max_value=max_d,
-            key="s_from"
-        )
-
-        to_date = to_col.date_input(
-            "To Date",
-            value=max_d,
-            min_value=min_d,
-            max_value=max_d,
-            key="s_to"
-        )
+        from_date = from_col.date_input("From Date", value=min_d, min_value=min_d, max_value=max_d, key="s_from")
+        to_date   = to_col.date_input("To Date",   value=max_d, min_value=min_d, max_value=max_d, key="s_to")
     else:
         from_date = to_date = None
 
@@ -403,15 +381,9 @@ def show():
     with tab5:
         if 'Month' in df.columns:
             mdf = df.groupby('Month', as_index=False).agg(
-            Net_Sale=('Net_Sale','sum'),
-            Net_Discount=('Net_Discount','sum'),
-            Net_Cost=('Net_Cost','sum')
-)
-
-# 👉 Convert for proper timeline sorting
-            mdf['Month'] = mdf['Month'].dt.to_timestamp()
-
-            mdf = mdf.sort_values('Month')
+                Net_Sale=('Net_Sale','sum'), Net_Discount=('Net_Discount','sum'),
+                Net_Cost=('Net_Cost','sum')
+            ).sort_values('Month')
             mdf['Profit'] = mdf['Net_Sale'] - mdf['Net_Cost']
             fig = go.Figure()
             fig.add_trace(go.Scatter(x=mdf['Month'], y=mdf['Net_Sale'], mode='lines+markers',
