@@ -76,10 +76,10 @@ def show_login():
         </div>
         """, unsafe_allow_html=True)
 
-        st.markdown("<div style='font-size:11px;font-weight:600;letter-spacing:0px;color:#6b7280;margin-bottom:6px;'>USERNAME</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size:11px;font-weight:600;letter-spacing:1px;color:#6b7280;margin-bottom:1px;'>USERNAME</div>", unsafe_allow_html=True)
         username = st.text_input("u", placeholder="Enter your username", key="usr", label_visibility="collapsed")
         st.markdown("<div style='height:10px'></div>", unsafe_allow_html=True)
-        st.markdown("<div style='font-size:11px;font-weight:600;letter-spacing:0px;color:#6b7280;margin-bottom:6px;'>PASSWORD</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size:11px;font-weight:600;letter-spacing:1px;color:#6b7280;margin-bottom:1px;'>PASSWORD</div>", unsafe_allow_html=True)
         password = st.text_input("p", placeholder="Enter your password", type="password", key="pwd", label_visibility="collapsed")
         st.markdown("<div style='height:6px'></div>", unsafe_allow_html=True)
 
