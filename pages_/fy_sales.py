@@ -143,7 +143,7 @@ def show():
         st.markdown(f"<div style='font-size:13px;color:#6b7280;margin-bottom:14px;'>Welcome back, {full_name} • {role} • Region: {region} • Unit: {unit}</div>", unsafe_allow_html=True)
 
     # ── Header Filters ───────────────────────────────────────────────────────
-        if 'Date' in df_full.columns:
+    if 'Date' in df_full.columns:
         # 👉 Latest available date (running month)
         max_d = df_full['Date'].max().date()
 
