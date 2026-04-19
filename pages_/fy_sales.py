@@ -4,6 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from sqlalchemy import create_engine
 from urllib.parse import quote_plus
+from dateutil.relativedelta import relativedelta
 import io
 
 @st.cache_resource
@@ -142,11 +143,32 @@ def show():
         st.markdown(f"<div style='font-size:13px;color:#6b7280;margin-bottom:14px;'>Welcome back, {full_name} • {role} • Region: {region} • Unit: {unit}</div>", unsafe_allow_html=True)
 
     # ── Header Filters ───────────────────────────────────────────────────────
-    if 'Date' in df_full.columns:
-        min_d = df_full['Date'].min().date()
+        if 'Date' in df_full.columns:
+        # 👉 Latest available date (running month)
         max_d = df_full['Date'].max().date()
-        from_date = from_col.date_input("From Date", value=min_d, min_value=min_d, max_value=max_d, key="s_from")
-        to_date   = to_col.date_input("To Date",   value=max_d, min_value=min_d, max_value=max_d, key="s_to")
+
+        # 👉 6 months back from 1st of max month
+        min_d = max_d.replace(day=1) - relativedelta(months=6)
+
+        # 👉 Safety check (don’t go below data availability)
+        data_min = df_full['Date'].min().date()
+        min_d = max(min_d, data_min)
+
+        from_date = from_col.date_input(
+            "From Date",
+            value=min_d,
+            min_value=min_d,
+            max_value=max_d,
+            key="s_from"
+        )
+
+        to_date = to_col.date_input(
+            "To Date",
+            value=max_d,
+            min_value=min_d,
+            max_value=max_d,
+            key="s_to"
+        )
     else:
         from_date = to_date = None
 
