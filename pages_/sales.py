@@ -59,8 +59,8 @@ def show():
     <style>
     .kpi-card {
         background:linear-gradient(145deg,#0d1117,#111827);
-        border:1px solid #1f2937; border-radius:18px;
-        padding:20px; position:relative; overflow:hidden;
+        border:1px solid #1f2937; border-radius:12px;
+        padding:12px 14px; position:relative; overflow:hidden;
         transition:transform 0.2s,box-shadow 0.2s;
     }
     .kpi-card::before {
@@ -69,10 +69,10 @@ def show():
         background:linear-gradient(180deg,#6366f1,#8b5cf6);
     }
     .kpi-card:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(99,102,241,0.15); }
-    .kpi-icon  { font-size:18px; margin-bottom:6px; }
-    .kpi-label { font-size:10px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#6b7280; margin-bottom:4px; }
-    .kpi-value { font-size:22px; font-weight:800; color:#f9fafb; }
-    .kpi-sub   { font-size:11px; color:#10b981; margin-top:3px; }
+    .kpi-icon  { font-size:14px; margin-bottom:4px; }
+    .kpi-label { font-size:9px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#6b7280; margin-bottom:2px; }
+    .kpi-value { font-size:18px; font-weight:800; color:#f9fafb; }
+    .kpi-sub   { font-size:10px; color:#10b981; margin-top:3px; }
     .period-banner {
         background:linear-gradient(135deg,#0d1117,#111827);
         border:1px solid #1f2937; border-left:4px solid #6366f1;
