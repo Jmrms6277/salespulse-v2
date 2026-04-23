@@ -95,6 +95,7 @@ section[data-testid="stSidebar"]:hover {
             "📉  L10D Trend",
             "🔍  GP Leakage",
             "💵  Cash Receipt",
+            "💵  Common Reports",
         ], label_visibility="collapsed", key="main_nav")
 
         st.markdown("---")
@@ -129,4 +130,7 @@ section[data-testid="stSidebar"]:hover {
         show()
     elif page == "💵  Cash Receipt":
         from pages_.cash_receipt import show
+        show()
+    elif page == "💵  Common Reports":
+        from pages_.com_reports import show
         show()
