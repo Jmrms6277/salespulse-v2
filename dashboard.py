@@ -131,6 +131,6 @@ section[data-testid="stSidebar"]:hover {
     elif page == "💵  Cash Receipt":
         from pages_.cash_receipt import show
         show()
-    elif page == "📝 Reports":
-        from pages_.com_reports import show
+    elif page == "📝  Reports":
+        from pages_.reports import show
         show()
